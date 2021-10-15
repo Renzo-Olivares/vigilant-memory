@@ -17,11 +17,14 @@ do
         then
             groupscollection+=" ${groupname}, "
         fi
-        if [ "$grepout" ]
+        if ! [[ $groupname = $username ]]
         then
-            groupscollection+=" ${groupname}, "
+            if [ "$grepout" ]
+            then
+                groupscollection+=" ${groupname}, "
+            fi
         fi
-    done <<< $(echo "$Y")
+    done <<< "$Y"
     finalout=`echo "$x" | awk '{print $1,$2}'`
     echo "$finalout${groupscollection::-2}"
-done <<< $(echo "$X")
+done <<< "$X"
